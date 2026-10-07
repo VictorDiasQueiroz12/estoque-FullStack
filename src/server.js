@@ -65,25 +65,45 @@ app.get("/User", async (req, res) =>{
 })
 
 app.post("/User", async (req, res) =>{
+
+    try{
+    const {nome, email} = req.body
+
     const usuario = await prisma.user.create({
-        data: req.body,
+        data: {
+            nome,
+            email 
+        },
     })
-    res.json(usuario) 
+    res.json(usuario)
+}catch(error){
+    res.status(400).json({ erro: "Falta informações para cadastro!", detalhe: error.message})
+}
 }) 
 
 app.put("/User/:id", async (req, res) =>{
+
+    try{
     const usuario = await prisma.user.update({
         where:{id: Number(req.params.id)},
         data: req.body,
     })
     res.json(usuario)
+}catch(error){
+    res.status(404).json({erro: "Usuario não encontrado!", detalhe: error.message})
+}
 })
 
 app.delete("/User/:id", async (req, res) =>{
+
+    try{
     const usuario = await prisma.user.delete({
         where:{id: Number(req.params.id)},
     })
     res.json(usuario)
+}catch(error){
+    res.status(404).json({erro: "Usuario não encontrado!", detalhe: error.message })
+}
 })
 
 
