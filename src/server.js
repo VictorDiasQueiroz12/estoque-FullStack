@@ -29,23 +29,33 @@ app.post("/Produtos", async (req, res) =>{
     })
     res.json(novoProduto)
 }catch (error) {
-        res.status(400).json({ erro: "Ta errado essa bomba", detalhe: error.message })
+        res.status(400).json({ erro: "Está faltando informações para o registro.", detalhe: error.message })
     }
 })
 
 app.put("/Produtos/:id", async (req, res) =>{
+
+    try{
     const produto = await prisma.produtos.update({
         where:{id: Number(req.params.id)},
         data: req.body,
     })
     res.json(produto)
+}catch(error){
+    res.status(404).json({ erro: "Produto não encontrado nos registros.", detalhe: error.message })
+}
 })
 
 app.delete("/Produtos/:id", async (req, res) =>{
+
+    try{
     const produto = await prisma.produtos.delete({
         where:{id: Number(req.params.id)},
     })
     res.json(produto)
+}catch(error){
+    res.status(404).json({ erro: "Produto não encontrado nos registros.", detalhe: error.menssage })
+}
 })
 
 // ROTAS USER
