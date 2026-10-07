@@ -42,7 +42,7 @@ app.put("/Produtos/:id", async (req, res) =>{
     })
     res.json(produto)
 }catch(error){
-    res.status(404).json({ erro: "Produto não encontrado nos registros.", detalhe: error.message })
+    res.status(404).json({ erro: "Produto não encontrado nos registros!", detalhe: error.message })
 }
 })
 
@@ -54,7 +54,7 @@ app.delete("/Produtos/:id", async (req, res) =>{
     })
     res.json(produto)
 }catch(error){
-    res.status(404).json({ erro: "Produto não encontrado nos registros.", detalhe: error.menssage })
+    res.status(404).json({ erro: "Produto não encontrado nos registros!", detalhe: error.menssage })
 }
 })
 
